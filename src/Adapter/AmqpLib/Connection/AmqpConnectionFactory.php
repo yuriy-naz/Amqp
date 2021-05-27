@@ -63,7 +63,7 @@ class AmqpConnectionFactory implements ConnectionFactoryInterface
             null,
             'en_US',
             $this->connectionOptions['read_timeout'] ?? 0,
-            false,
+            true,
             $this->connectionOptions['read_timeout'] ?? 0.0,
             $this->connectionOptions['heartbeat'] ?? 0,
             $this->connectionOptions['read_timeout'] ?? 0
