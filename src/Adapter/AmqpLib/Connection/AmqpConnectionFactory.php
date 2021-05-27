@@ -16,6 +16,7 @@ namespace FiveLab\Component\Amqp\Adapter\AmqpLib\Connection;
 use FiveLab\Component\Amqp\Connection\ConnectionFactoryInterface;
 use FiveLab\Component\Amqp\Connection\ConnectionInterface;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
+use PhpAmqpLib\Connection\AMQPLazySocketConnection;
 
 /**
  * The factory for create connection provided via php-amqplib library.
@@ -51,7 +52,7 @@ class AmqpConnectionFactory implements ConnectionFactoryInterface
             return $this->connection;
         }
 
-        $amqpLibConnection = new AMQPLazyConnection(
+        $amqpLibConnection = new AMQPLazySocketConnection(
             $this->connectionOptions['host'],
             $this->connectionOptions['port'],
             $this->connectionOptions['login'] ?? 'guest',
@@ -61,10 +62,9 @@ class AmqpConnectionFactory implements ConnectionFactoryInterface
             'AMQPLAIN',
             null,
             'en_US',
-            5.0,
             $this->connectionOptions['read_timeout'] ?? 0,
-            null,
             false,
+            $this->connectionOptions['read_timeout'] ?? 0.0,
             $this->connectionOptions['heartbeat'] ?? 0,
             $this->connectionOptions['read_timeout'] ?? 0
         );
